@@ -4,7 +4,8 @@
     
 }
 
-+ (NSString *) pinyinFromChiniseString:(NSString *)string;
-+ (char) sortSectionTitle:(NSString *)string; 
++ (NSString *)pinyinFromChiniseString:(NSString *)string;
++ (char)sortSectionTitle:(NSString *)string;
++ (NSString *)pingyinFromSurname:(NSString *)string;
 
 @end

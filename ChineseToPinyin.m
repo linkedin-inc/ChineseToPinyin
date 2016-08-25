@@ -1,5 +1,78 @@
 #import "ChineseToPinyin.h"
 
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
+NSString *SurnameFilter(int nCode) {
+    NSString *strValue = nil;
+    
+    switch (nCode) {
+        case 2966: // 解
+            strValue = @"XIE";
+            break;
+        case 3442: //　率
+            strValue = @"SHUAI";
+            break;
+        case 5456: //　重
+            strValue = @"CHONG";
+            break;
+        case 3988: //　区
+            strValue = @"OU";
+            break;
+        case 1980: //　仇
+            strValue = @"QIU";
+            break;
+        case 3556: //　秘
+            strValue = @"MI";
+            break;
+        case 5794: //　冼
+            strValue = @"XIN";
+            break;
+        case 5359: //　折
+            strValue = @"SHE";
+            break;
+        case 2105: //　单
+            strValue = @"SHAN";
+            break;
+        case 4182: //　沈
+            strValue = @"SHEN";
+            break;
+        case 3851: //　朴
+            strValue = @"PIAO";
+            break;
+        case 2152: //　翟
+            strValue = @"ZHAI";
+            break;
+        case 1873: //　查
+            strValue = @"ZHA";
+            break;
+        case 2439: //　盖
+            strValue = @"GE";
+            break;
+        case 8191: //　覃
+            strValue = @"QIN";
+            break;
+        case 4630: //　尉
+            strValue = @"YU";
+            break;
+        case 5288: //　曾
+            strValue = @"ZENG";
+            break;
+        case 2658: //　黑
+            strValue = @"HE";
+            break;
+        case 3254: //　乐
+            strValue = @"YUE";
+            break;
+        case 5217: //　员
+            strValue = @"YUN";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return strValue;
+}
+
 NSString *FindLetter(int nCode) {
 	NSString *strValue = @"";
 	switch(nCode) {
@@ -348,7 +421,6 @@ NSString *FindLetter(int nCode) {
 		case 6731:
 		case 8409:
 		case 8430:
-		case 5456:
 			strValue = @"CHONG";
 			break;
 		case 5717:
@@ -672,8 +744,6 @@ NSString *FindLetter(int nCode) {
 		case 7879:
 		case 8025:
 		case 8660:
-		case 2290:
-		case 2291:
 			strValue = @"ER";
 			break;
 		case 5950:
@@ -3474,8 +3544,6 @@ NSString *FindLetter(int nCode) {
 		case 8603:
 			strValue = @"ZHI";
 			break;
-		case 5457:
-		case 5458:
 		case 5803:
 		case 7981:
 		case 8314:
@@ -5493,7 +5561,7 @@ NSString *FindLetter(int nCode) {
 				strValue = @"ZHI";
 				break;
 			}
-			if(nCode >= 5448 && nCode <= 5455)
+			if(nCode >= 5448 && nCode <= 5458)
 			{
 				strValue = @"ZHONG";
 				break;
@@ -5802,7 +5870,7 @@ static char firstLetterArray[HANZI_COUNT] =
 "whxgzxwznnqzjzjjqjccchykxbzszcnjtllcqxynjnckycynccqnxyewyczdcjycchyjlbtzyycqwlpgpyllgktltlgkgqbgychj"
 "xy";
 
-char pinyinFirstLetter(unsigned short hanzi) {
+char pinyinFirstLetter2(unsigned short hanzi) {
 	int index = hanzi - HANZI_START;
 	if (index >= 0 && index <= HANZI_COUNT) {
 		return firstLetterArray[index];
@@ -5841,7 +5909,7 @@ char pinyinFirstLetter(unsigned short hanzi) {
 		strValue = [strValue stringByAppendingString:strRes];
         i++;
     }	
-	return [[NSString alloc] initWithString:strValue]
+	return [[[NSString alloc] initWithString:strValue] autorelease]
             ;
 }
 
@@ -5853,13 +5921,85 @@ char pinyinFirstLetter(unsigned short hanzi) {
 		if(([string characterAtIndex:0] > 64 && [string characterAtIndex:0] < 91) || 
 		   ([string characterAtIndex:0] > 96 && [string characterAtIndex:0] < 123) ) {
 			cLetter = [string characterAtIndex:0];
-		} else
-			cLetter = pinyinFirstLetter((unsigned short)[string characterAtIndex:0]);
+        } else {
+            NSString *strHeader = [string substringToIndex:1];
+            if ([strHeader isEqualToString:@"解"])
+                return 'X';
+            else if ([strHeader isEqualToString:@"率"])
+                return 'S';
+            else if ([strHeader isEqualToString:@"重"])
+                return 'C';
+            else if ([strHeader isEqualToString:@"区"])
+                return 'O';
+            else if ([strHeader isEqualToString:@"仇"])
+                return 'Q';
+            else if ([strHeader isEqualToString:@"秘"])
+                return 'M';
+            else if ([strHeader isEqualToString:@"冼"])
+                return 'X';
+            else if ([strHeader isEqualToString:@"折"])
+                return 'S';
+            else if ([strHeader isEqualToString:@"单"])
+                return 'S';
+            else if ([strHeader isEqualToString:@"沈"])
+                return 'S';
+            else if ([strHeader isEqualToString:@"朴"])
+                return 'P';
+            else if ([strHeader isEqualToString:@"翟"])
+                return 'Z';
+            else if ([strHeader isEqualToString:@"查"])
+                return 'Z';
+            else if ([strHeader isEqualToString:@"盖"])
+                return 'G';
+            else if ([strHeader isEqualToString:@"覃"])
+                return 'Q';
+            else if ([strHeader isEqualToString:@"尉"])
+                return 'W';
+            else if ([strHeader isEqualToString:@"曾"])
+                return 'Z';
+            else
+                cLetter = pinyinFirstLetter2((unsigned short)[string characterAtIndex:0]);
+        }
 		
 		if(cLetter > 95)
 			cLetter -= 32;
 	}	
 	return cLetter;
+}
+
++ (NSString *)pingyinFromSurname:(NSString *)string {
+    if(!string || ![string length])
+        return @"#";
+    
+    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding( kCFStringEncodingGB_18030_2000);
+    NSData *gb2312_data = [string dataUsingEncoding:enc];
+    
+    unsigned char ucHigh, ucLow;
+    int nCode;
+    NSString *strValue = @"";
+    int iLen = [gb2312_data length];
+    char *gb2312_string = (char *)[gb2312_data bytes];
+    if (iLen > 1) iLen = 1;
+    for (int i = 0; i < iLen; i++) {
+        if ((unsigned char)gb2312_string[i] < 0x80 ) {
+            strValue = [strValue stringByAppendingFormat:@"%c", gb2312_string[i] > 95 ? gb2312_string[i] - 32 : gb2312_string[i]];
+            continue;
+        }
+        
+        ucHigh = (unsigned char)gb2312_string[i];
+        ucLow  = (unsigned char)gb2312_string[i + 1];
+        if ( ucHigh < 0xa1 || ucLow < 0xa1)
+            continue;
+        else
+            nCode = (ucHigh - 0xa0) * 100 + ucLow - 0xa0;
+        
+        NSString *strRes = SurnameFilter(nCode);
+        if (strRes == nil)
+            strRes = FindLetter(nCode);
+        strValue = [strValue stringByAppendingString:strRes];
+        i++;
+    }
+    return [[[NSString alloc] initWithString:strValue] autorelease];
 }
 
 @end
