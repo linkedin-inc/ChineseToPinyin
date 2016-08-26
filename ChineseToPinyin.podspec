@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/Linkedin-inc/ChineseToPinyin"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { "" => "" }
-  s.source       = { :git => "https://github.com/yolii/ChineseToPinyin.git",  :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/Linkedin-inc/ChineseToPinyin.git",  :tag => s.version.to_s }
   s.platform     = :ios, '7.0'
   s.requires_arc = false
   s.source_files = '*.{h,m}'
