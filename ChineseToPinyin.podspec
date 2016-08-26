@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ChineseToPinyin"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "ChineseToPinyin Objective-c tool"
   s.homepage     = "https://github.com/Linkedin-inc/ChineseToPinyin"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
